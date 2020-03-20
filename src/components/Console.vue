@@ -1,36 +1,47 @@
 <template>
-  <v-card
+  <div
     height="100%"
-    outlined
-    class="d-flex flex-column"
+    id="console"
   >
-    <v-card-text>
-      <div>Serial Console</div>
-      <pre class="text--primary">{{ consoleText }}</pre>
-    </v-card-text>
-
-    <v-spacer></v-spacer>
-
-    <v-card-actions>
-      <v-text-field
-        :append-icon="'mdi-send'"
-        label="Send command"
-        @click:append="show3 = !show3"
-        filled
-        dense
-      ></v-text-field>
-    </v-card-actions>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { Terminal } from 'xterm'
+import { FitAddon } from 'xterm-addon-fit'
+import 'xterm/css/xterm.css'
 
 export default Vue.extend({
   name: 'Console',
   computed: mapState({
     consoleText: 'consoleText'
-  })
+  }),
+  data: function () {
+    return {
+      term: null as Terminal | null
+    }
+  },
+  mounted: function () {
+    this.term = new Terminal()
+    const fitAddon = new FitAddon()
+    const containerElement = document.getElementById('console') as HTMLElement
+    this.term.loadAddon(fitAddon)
+    this.term.open(containerElement)
+    fitAddon.fit()
+
+    // Subscribe to receive text from store
+    this.$store.subscribeAction((action) => {
+      if (action.type === 'pushToConsole') {
+        if (this.term instanceof Terminal) {
+          this.term.writeln(action.payload)
+        }
+      }
+    })
+
+    // Push inputs to store
+    // TODO See https://github.com/wavesoft/local-echo
+  }
 })
 </script>

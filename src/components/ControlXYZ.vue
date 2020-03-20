@@ -655,12 +655,12 @@ svg.shadow {
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default Vue.extend({
   name: 'ControlXYZ',
 
-  methods: mapMutations([
+  methods: mapActions([
     'pushToConsole'
   ])
 })
