@@ -1,4 +1,6 @@
-# printrunjs
+# PrintRunJS
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ferdnaxe%2Fprintrunjs.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ferdnaxe%2Fprintrunjs?ref=badge_shield)
 
 ## How to develop
 
