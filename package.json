@@ -21,6 +21,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@babylonjs/core": "^4.1.0",
     "@types/serialport": "^8.0.0",
     "core-js": "^3.6.4",
     "register-service-worker": "^1.6.2",
